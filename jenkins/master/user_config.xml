@@ -1,0 +1,47 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<user>
+  <fullName>jenkins</fullName>
+  <description></description>
+  <properties>
+    <hudson.model.PaneStatusProperties>
+      <collapsed/>
+    </hudson.model.PaneStatusProperties>
+    <jenkins.security.ApiTokenProperty>
+      <apiToken>o+1pXRKOD39UTs9yAdxbEPP1wkhY5iSxXxnN/NWnfYVWC7WFbdQBZW+W9V39wNmU</apiToken>
+    </jenkins.security.ApiTokenProperty>
+    <com.cloudbees.plugins.credentials.UserCredentialsProvider_-UserCredentialsProperty plugin="credentials@1.9.4">
+      <domainCredentialsMap class="hudson.util.CopyOnWriteMap$Hash">
+        <entry>
+          <com.cloudbees.plugins.credentials.domains.Domain>
+            <specifications/>
+          </com.cloudbees.plugins.credentials.domains.Domain>
+          <java.util.concurrent.CopyOnWriteArrayList/>
+        </entry>
+      </domainCredentialsMap>
+    </com.cloudbees.plugins.credentials.UserCredentialsProvider_-UserCredentialsProperty>
+    <hudson.tasks.Mailer_-UserProperty plugin="mailer@1.8">
+      <emailAddress>jenkins@local</emailAddress>
+    </hudson.tasks.Mailer_-UserProperty>
+    <hudson.model.MyViewsProperty>
+      <primaryViewName></primaryViewName>
+      <views>
+        <hudson.model.AllView>
+          <owner class="hudson.model.MyViewsProperty" reference="../../.."/>
+          <name>Tous</name>
+          <filterExecutors>false</filterExecutors>
+          <filterQueue>false</filterQueue>
+          <properties class="hudson.model.View$PropertyList"/>
+        </hudson.model.AllView>
+      </views>
+    </hudson.model.MyViewsProperty>
+    <hudson.security.HudsonPrivateSecurityRealm_-Details>
+      <passwordHash>#jbcrypt:$2a$10$30vO8BPh6pa9Fzim/vjaEenLoZCbzm8iQuR0LCBb2DE7qmSzCoFJm</passwordHash>
+    </hudson.security.HudsonPrivateSecurityRealm_-Details>
+    <org.jenkinsci.main.modules.cli.auth.ssh.UserPropertyImpl>
+      <authorizedKeys>ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQChUp7Z7BIby0CAlBFV4b2qEZ4tNYqGM8p36+dyZ/CtSOa8vosLHLVwLCrX2pN5H49BoAEuGKDoEH3tXjMYKVoBko+wA4O9dJBUzqyWo+HPjdm/RzJ1+gIftydgVlZHwf2FrygI97XiRlFtH3kSOXqBus1s5sQpsrYTLxf5So1XcKHqX4+uQhk4S0IwqbWSfqJ64X/UMj1lTotd0tZqZk+D61nIW3dQQQcflEuE1S6QVAtwG8pLQiE+JR1YS8R7TQ/BQWwneWPeGRRapAEFjtrseXYZocnnLA1OkAbo9eSRSkyi4Gr93Ku/bN5GHm0WOIxZA1QR3bOGXOk2NssKLDbJ jpthiery@MacBook-Pro-de-Jean-Pascal.local</authorizedKeys>
+    </org.jenkinsci.main.modules.cli.auth.ssh.UserPropertyImpl>
+    <hudson.search.UserSearchProperty>
+      <insensitiveSearch>false</insensitiveSearch>
+    </hudson.search.UserSearchProperty>
+  </properties>
+</user>
