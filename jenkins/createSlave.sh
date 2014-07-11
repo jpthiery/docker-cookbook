@@ -1,4 +1,8 @@
 #!/bin/bash
+#
+# Script to add new node in master jenkins via jenkins-cli
+#
+
 URL=$1
 NODE_NAME=$2
 
