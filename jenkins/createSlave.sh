@@ -1,5 +1,4 @@
 #!/bin/bash
-#
 # Script to add new node in master jenkins via jenkins-cli
 #
 
