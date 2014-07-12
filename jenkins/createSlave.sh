@@ -7,8 +7,9 @@ NODE_NAME=$2
 
 if [[ -x jenkins-cli.jar ]] 
 then
-	echo "Already get cli"
+	echo "Already get jenkins-cli"
 else
+	echo "Try to download jenkins-cli.jar"
 	curl -o jenkins-cli.jar $URL/jnlpJars/jenkins-cli.jar
 	chmod +x jenkins-cli.jar
 fi

@@ -38,7 +38,9 @@
       <passwordHash>#jbcrypt:$2a$10$30vO8BPh6pa9Fzim/vjaEenLoZCbzm8iQuR0LCBb2DE7qmSzCoFJm</passwordHash>
     </hudson.security.HudsonPrivateSecurityRealm_-Details>
     <org.jenkinsci.main.modules.cli.auth.ssh.UserPropertyImpl>
-      <authorizedKeys>ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQChUp7Z7BIby0CAlBFV4b2qEZ4tNYqGM8p36+dyZ/CtSOa8vosLHLVwLCrX2pN5H49BoAEuGKDoEH3tXjMYKVoBko+wA4O9dJBUzqyWo+HPjdm/RzJ1+gIftydgVlZHwf2FrygI97XiRlFtH3kSOXqBus1s5sQpsrYTLxf5So1XcKHqX4+uQhk4S0IwqbWSfqJ64X/UMj1lTotd0tZqZk+D61nIW3dQQQcflEuE1S6QVAtwG8pLQiE+JR1YS8R7TQ/BQWwneWPeGRRapAEFjtrseXYZocnnLA1OkAbo9eSRSkyi4Gr93Ku/bN5GHm0WOIxZA1QR3bOGXOk2NssKLDbJ jpthiery@MacBook-Pro-de-Jean-Pascal.local</authorizedKeys>
+      <authorizedKeys>
+		  @@SSH_PUBLIC_KEY@@
+	  </authorizedKeys>
     </org.jenkinsci.main.modules.cli.auth.ssh.UserPropertyImpl>
     <hudson.search.UserSearchProperty>
       <insensitiveSearch>false</insensitiveSearch>

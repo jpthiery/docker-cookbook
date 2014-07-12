@@ -4,19 +4,22 @@ MAINTAINER Jean-Pascal Thiery <jean-pascal@thiery.in>
 RUN apt-get update
 RUN apt-get -y install openssh-server maven git
 
-ENV JENKINS_HOME /var/lib/jenkins
-
-#RUN useradd -m -s /bin/bash jenkins && echo jenkins:jenkins | chpasswd && mkdir -p /var/run/sshd
 CMD /usr/sbin/sshd -D
 
-COPY config.xml /var/lib/jenkins/.jenkins/config.xml
-COPY id_rsa.pub /tmp/id_rsa.pub
+ENV JENKINS_HOME /var/lib/jenkins
 
-RUN mkdir -p /var/lib/jenkins/.jenkins/.ssh/ && echo /tmp/id_ras.pub > /var/lib/jenkins/.jenkins/.ssh/authorized_keys
+COPY config.xml /var/lib/jenkins/.jenkins/config.xml
+COPY user_config.xml /tmp/user_config.xml
+COPY user_sshkey.sed /tmp/user_sshkey.sed
+
+RUN ssh-keygen -b 2048 -t rsa -f /var/lib/jenkins/sshkey -q -N "" 
+
+RUN mkdir -p /var/lib/jenkins/.jenkins/users/jenkins/ && sed -f /tmp/user_sshkey.sed /tmp/user_config.xml > /var/lib/jenkins/.jenkins/users/jenkins/config.xml
+
+RUN mkdir -p /var/lib/jenkins/.jenkins/.ssh/ && cat /var/lib/jenkins/sshkey.pub > /var/lib/jenkins/.jenkins/.ssh/authorized_keys
 RUN chown -R jenkins:jenkins /var/lib/jenkins
 
-
-#ENTRYPOINT su - jenkins -c "java -jar /usr/share/jenkins/jenkins.war"
+ENTRYPOINT exec su - jenkins -c "java -jar /usr/share/jenkins/jenkins.war"
 
 EXPOSE 8080
 EXPOSE 22
