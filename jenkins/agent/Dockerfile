@@ -1,4 +1,4 @@
-FROM jenkins/runner:test
+FROM runner/java8
 MAINTAINER Jean-Pascal Thiery <jean-pascal@thiery.in>
 
 RUN apt-get update

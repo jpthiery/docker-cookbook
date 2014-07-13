@@ -1,8 +1,10 @@
-FROM jenkins/initial
+FROM runner/java8
 MAINTAINER Jean-Pascal Thiery <jean-pascal@thiery.in>
 
+RUN echo "deb http://pkg.jenkins-ci.org/debian binary/" > /etc/apt/sources.list.d/jenkins.list && wget -q -O - http://pkg.jenkins-ci.org/debian/jenkins-ci.org.key | apt-key add -
+
 RUN apt-get update
-RUN apt-get -y install openssh-server
+RUN apt-get -y install jenkins openssh-server
 
 CMD /usr/sbin/sshd -D
 
