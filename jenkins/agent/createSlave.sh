@@ -20,7 +20,7 @@ echo "Creating slave node $NODE_NAME"
 java -jar jenkins-cli.jar -s $URL create-node $NODE_NAME << EOF
 <slave>
       <name>$NODE_NAME</name>
-      <description>Jenkins slave at your service</description>
+      <description>Jenkins slave $NODE_NAME </description>
       <remoteFS>/</remoteFS>
       <numExecutors>1</numExecutors>
       <mode>NORMAL</mode>
