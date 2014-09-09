@@ -4,9 +4,8 @@ MAINTAINER Jean-Pascal Thiery <jean-pascal@thiery.in>
 RUN echo "deb http://pkg.jenkins-ci.org/debian binary/" > /etc/apt/sources.list.d/jenkins.list && wget -q -O - http://pkg.jenkins-ci.org/debian/jenkins-ci.org.key | apt-key add -
 
 RUN apt-get update
-RUN apt-get -y install jenkins openssh-server ntp
+RUN apt-get -y install jenkins openssh-server
 
-RUN echo "server 0.fr.pool.ntp.org iburst dynamic\nserver 1.fr.pool.ntp.org iburst dynamic\nserver 2.fr.pool.ntp.org iburst dynamic\nserver 3.fr.pool.ntp.org iburst dynamic" > /etc/ntp.conf && /etc/init.d/ntp restart
 CMD /usr/sbin/sshd -D
 
 ENV JENKINS_HOME /var/lib/jenkins
@@ -27,6 +26,4 @@ RUN chown -R jenkins:jenkins /var/lib/jenkins
 
 ENTRYPOINT exec su - jenkins -c "java -jar /usr/share/jenkins/jenkins.war"
 
-EXPOSE 8080
-EXPOSE 22
-EXPOSE 49275
+EXPOSE 8080 22 49275
