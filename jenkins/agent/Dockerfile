@@ -1,9 +1,15 @@
-FROM runner/java8
+FROM jpthiery/java8
 MAINTAINER Jean-Pascal Thiery <jean-pascal@thiery.in>
 
 RUN apt-get update
-RUN apt-get -y install curl maven git
+RUN apt-get -y install curl maven git-core openssh-server
 
-COPY createSlave.sh createSlave.sh
+RUN useradd -m -s /bin/bash jenkins
+RUN echo jenkins:jenkins | chpasswd
+RUN mkdir -p /var/run/sshd
 
-ENTRYPOINT exec /./createSlave.sh
+#ENTRYPOINT /usr/sbin/sshd -D
+
+EXPOSE 22
+
+#ENTRYPOINT exec /./createSlave.sh
