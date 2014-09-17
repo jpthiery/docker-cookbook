@@ -7,7 +7,7 @@ try {
     def uc = j.updateCenter;
     
     p.doCheckUpdatesServer();
-    ['docker-plugin', 'delivery-pipeline-plugin', 'build-pipeline-plugin', 'git'].each { n ->
+    ['docker-plugin', 'build-pipeline-plugin', 'git', 'gatling', 'token-macro'].each { n ->
       j.updateCenter.getById('default').getPlugin(n).deploy(false).get();
     }
     

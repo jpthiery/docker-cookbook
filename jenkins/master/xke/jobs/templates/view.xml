@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<au.com.centrumsystems.hudson.plugin.buildpipeline.BuildPipelineView plugin="build-pipeline-plugin@1.4.3">
+  <name>@@PROJECT_NAME@@-pipeline</name>
+  <filterExecutors>true</filterExecutors>
+  <filterQueue>true</filterQueue>
+  <properties class="hudson.model.View$PropertyList"/>
+  <gridBuilder class="au.com.centrumsystems.hudson.plugin.buildpipeline.DownstreamProjectGridBuilder">
+    <firstJob>checkout-build-maven-@@PROJECT_NAME@@</firstJob>
+  </gridBuilder>
+  <noOfDisplayedBuilds>1</noOfDisplayedBuilds>
+  <buildViewTitle></buildViewTitle>
+  <consoleOutputLinkStyle>Lightbox</consoleOutputLinkStyle>
+  <cssUrl></cssUrl>
+  <triggerOnlyLatestJob>true</triggerOnlyLatestJob>
+  <alwaysAllowManualTrigger>true</alwaysAllowManualTrigger>
+  <showPipelineParameters>true</showPipelineParameters>
+  <showPipelineParametersInHeaders>false</showPipelineParametersInHeaders>
+  <startsWithParameters>false</startsWithParameters>
+  <refreshFrequency>3</refreshFrequency>
+  <showPipelineDefinitionHeader>false</showPipelineDefinitionHeader>
+</au.com.centrumsystems.hudson.plugin.buildpipeline.BuildPipelineView>
