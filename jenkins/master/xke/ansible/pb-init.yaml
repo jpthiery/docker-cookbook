@@ -1,0 +1,40 @@
+---
+- hosts: docker
+  user: vagrant
+  sudo: yes
+  gather_facts: no
+  
+  tasks:
+    - name: Update distribution
+      command:
+        /usr/bin/apt-get update -y
+    - name: Upgrate distribution
+      command:
+        /usr/bin/apt-get upgrade -y
+    - name: Install python-apt
+      command: 
+        /usr/bin/apt-get install -y python-apt
+        
+    - name: Install docker
+      apt:
+        pkg={{ item }}
+        state=present
+      with_items:
+        - lxc-docker
+        - vim
+        - bridge-utils
+        - python-pip
+        - dnsmasq
+    - name: Install docker python librairie
+      pip: name=docker-py
+- name: Setup docker1 bridge
+  hosts: docker
+  sudo: yes
+  roles:
+    - docker
+- name: Launch consul 
+  hosts: consul
+  sudo: yes
+  roles:
+    - consul
+        

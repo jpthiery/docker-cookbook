@@ -1,0 +1,45 @@
+# Vagrantfile API/syntax version. Don't touch unless you know what you're doing!
+VAGRANTFILE_API_VERSION = "2"
+
+Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
+
+  config.vm.box = "phusion-open-ubuntu-14.04-amd64"
+  config.vm.box_url = "https://oss-binaries.phusionpassenger.com/vagrant/boxes/latest/ubuntu-14.04-amd64-vbox.box"
+
+  config.vm.synced_folder "/Users/jpthiery/workspace", "/workspace"
+ 
+  if Dir.glob("#{File.dirname(__FILE__)}/.vagrant/machines/default/*/id").empty?
+    # Install Docker
+    pkg_cmd = "wget -q -O - https://get.docker.io/gpg | apt-key add -;" \
+      "echo deb http://get.docker.io/ubuntu docker main > /etc/apt/sources.list.d/docker.list;" \
+      "apt-get update -qq; apt-get install -q -y --force-yes lxc-docker; "
+    # Add vagrant user to the docker group
+    pkg_cmd << "usermod -a -G docker vagrant; "
+    config.vm.provision :shell, :inline => pkg_cmd
+  end
+
+  config.vm.define "node1", primary: true do |node|
+	node.vm.network "private_network", ip: "192.168.42.11"	
+	node.vm.network "private_network", ip: "10.42.0.11"
+	node.vm.hostname = "node1"
+  end
+  
+  config.vm.define "node2" do |node|
+	node.vm.network "private_network", ip: "192.168.42.12"
+	node.vm.network "private_network", ip: "10.42.0.12"
+	node.vm.hostname = "node2"
+  end
+  
+  config.vm.define "node3" do |node|
+	node.vm.network "private_network", ip: "192.168.42.13"
+	node.vm.network "private_network", ip: "10.42.0.13"
+    node.vm.hostname = "node3"
+  end
+  
+  config.vm.define "node4" do |node|
+	node.vm.network "private_network", ip: "192.168.42.14"
+	node.vm.network "private_network", ip: "10.42.0.14"
+	node.vm.hostname = "node4"
+  end
+  
+end

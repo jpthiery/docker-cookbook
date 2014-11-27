@@ -1,0 +1,31 @@
+[docker]
+
+10.42.0.11	dataip=192.168.42.11
+10.42.0.12	dataip=192.168.42.12 registry=true
+10.42.0.13	dataip=192.168.42.13 dockerui=true
+10.42.0.14	dataip=192.168.42.14 
+
+[docker:vars]
+ansible_ssh_user=vagrant	
+ansible_ssh_private_key_file=vagrantkey
+dockerui=false
+
+[consul]
+10.42.0.11 consultype=primary
+10.42.0.[12:13] consultype=secondary
+10.42.0.14 consultype=agent
+
+[consul:vars]
+joinip=10.42.0.11
+dnsip=10.42.0.14
+
+[sampleweb-front]
+10.42.0.11 dataip=192.168.42.11
+
+[sampleweb-app]
+10.42.0.12 dataip=192.168.42.12
+10.42.0.13 dataip=192.168.42.13
+
+[sampleweb:children]
+sampleweb-app
+sampleweb-front

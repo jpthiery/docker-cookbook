@@ -9,19 +9,17 @@ PROJECT_MVN_ARTID=$4
 PROJECT_DCK_USER=$5
 PROJECT_DCK_IMAGENAME=$6
 
+function usage() {
+  SCRIPT=`basename $0`
+  echo "Usage: $SCRIPT PROJECT_NAME PROJECT_GIT_URL PROJECT_MVN_GRPID PROJECT_MVN_ARTEFACTID"
+}
 
 if [ -z $4 ]; then
   usage
   exit 1
 fi
-
-usage() {
-  SCRIPT=`basename $0`
-  echo "Usage: $SCRIPT PROJECT_NAME PROJECT_GIT_URL PROJECT_MVN_GRPID PROJECT_MVN_ARTEFACTID"
-}
-
 if [ -z "$7" ]; then
-  URL="http://192.168.59.101:8082"
+  URL="http://172.17.0.62:8080"
 else
   URL=$7
 fi
@@ -50,11 +48,14 @@ sed -i "s#@@PROJECT_DCK_USER@@#$PROJECT_DCK_USER#g" ./$PROJECT_NAME/{checkout,in
 sed -i "s#@@PROJECT_DCK_IMAGENAME@@#$PROJECT_DCK_IMAGENAME#g" ./$PROJECT_NAME/{checkout,int,{basic,performance}-gatling}.xml
 
 echo "Creating Jobs"
+$JENKINS_CMD login jenkins jenkins
 $JENKINS_CMD create-job checkout-build-maven-$PROJECT_NAME < $PROJECT_NAME/checkout.xml
 $JENKINS_CMD create-job int-docker-$PROJECT_NAME < $PROJECT_NAME/int.xml
 $JENKINS_CMD create-job basic-gatling-$PROJECT_NAME < $PROJECT_NAME/basic-gatling.xml
 $JENKINS_CMD create-job performance-gatling-$PROJECT_NAME < $PROJECT_NAME/performance-gatling.xml
-echo "Creating view"
-$JENKINS_CMD create-view ${PROJECT_NAME}-pipeline < $PROJECT_NAME/view.xml
+#echo "Creating view"
+echo "$JENKINS_CMD create-job checkout-build-maven-$PROJECT_NAME < $PROJECT_NAME/checkout.xml"
+#$JENKINS_CMD create-view ${PROJECT_NAME}-pipeline < $PROJECT_NAME/view.xml
 
 # https://github.com/jpthiery/sample-web.git
+

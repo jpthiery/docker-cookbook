@@ -1,0 +1,55 @@
+---
+- name: launch consul primary server
+  when: consultype is defined and consultype == 'primary'
+  docker: 
+    image=progrium/consul 
+    detach=true
+    hostname={{ ansible_hostname }} 
+    name=consulserver 
+    ports="{{ansible_eth2.ipv4.address}}:8300:8300,{{ansible_eth2.ipv4.address}}:8301:8301,{{ansible_eth2.ipv4.address}}:8301:8301/udp,{{ansible_eth2.ipv4.address}}:8302:8302,{{ansible_eth2.ipv4.address}}:8302:8302/udp,{{ansible_eth2.ipv4.address}}:8400:8400,{{ansible_eth2.ipv4.address}}:8500:8500,172.42.0.1:53:53/udp"
+    command="-server -advertise {{ansible_eth2.ipv4.address}} -bootstrap-expect 3"
+    
+- name: launch consul secondary server
+  when: consultype is defined and consultype == 'secondary'
+  docker: 
+    image=progrium/consul 
+    detach=true
+    hostname={{ ansible_hostname }} 
+    name=consulserver 
+    ports="{{ansible_eth2.ipv4.address}}:8300:8300,{{ansible_eth2.ipv4.address}}:8301:8301,{{ansible_eth2.ipv4.address}}:8301:8301/udp,{{ansible_eth2.ipv4.address}}:8302:8302,{{ansible_eth2.ipv4.address}}:8302:8302/udp,{{ansible_eth2.ipv4.address}}:8400:8400,{{ansible_eth2.ipv4.address}}:8500:8500,172.42.0.1:53:53/udp"
+    command="-server -advertise {{ansible_eth2.ipv4.address}} -join {{joinip}}"
+    
+- name: launch consul agent
+  when: consultype is defined and consultype == 'agent'
+  docker: 
+    image=progrium/consul 
+    detach=true
+    hostname={{ ansible_hostname }} 
+    name=consulserver 
+    ports="{{ansible_eth2.ipv4.address}}:8300:8300,{{ansible_eth2.ipv4.address}}:8301:8301,{{ansible_eth2.ipv4.address}}:8301:8301/udp,{{ansible_eth2.ipv4.address}}:8302:8302,{{ansible_eth2.ipv4.address}}:8302:8302/udp,{{ansible_eth2.ipv4.address}}:8400:8400,{{ansible_eth2.ipv4.address}}:8500:8500,{{ansible_eth2.ipv4.address}}:8600:53/udp"
+    command="-advertise {{ansible_eth2.ipv4.address}} -join {{joinip}}"
+
+- name: launch registrator
+  docker:
+    image=progrium/registrator
+    detach=true
+    name=registrator
+    hostname=registrator.{{ ansible_hostname }}
+    volumes=/var/run/docker.sock:/tmp/docker.sock
+    command=consul://{{ansible_eth2.ipv4.address}}:8500
+
+- name: remove previous launch
+  docker:
+    image=crosbymichael/dockerui
+    state=absent
+    
+- name: launch docker ui
+  docker:
+    image=crosbymichael/dockerui
+    detach=true
+    name=dockerui
+    hostname=dockerui.{{ ansible_hostname }}
+    ports={{ansible_eth2.ipv4.address}}:9000:9000
+    volumes=/var/run/docker.sock:/docker.sock
+    command="-e /docker.sock"
+    

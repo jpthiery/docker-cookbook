@@ -1,0 +1,28 @@
+---
+- hosts: docker
+  user: vagrant
+  sudo: yes
+  
+  tasks:
+    - name: launch registry
+      when: registry is defined and registry
+      docker:
+        image=registry
+        detach=true
+        ports={{ansible_eth2.ipv4.address}}:5000:5000
+        volumes=/workspace/docker/jenkins/master/xke/tmp/registry:/tmp/registry
+    - name: build java8 images
+      when: registry is defined and registry
+      docker_image:
+        path={{ item.path }}
+        name=registry.service.consul:5000/jpthiery/{{ item.name }}
+      with_items:
+        - { name: "java8", path: "/workspace/docker/java8"}
+        #- { name: "sampleweb", path: "/workspace/sample-web/src/main/docker"}
+    - name: push docker images to registry
+      when: registry is defined and registry
+      command:
+        docker push registry.service.consul:5000/jpthiery/{{ item }}
+      with_items:
+        - java8
+    

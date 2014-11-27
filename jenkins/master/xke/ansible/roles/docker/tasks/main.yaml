@@ -1,0 +1,10 @@
+---
+- name: Create bridge docker1
+  template: src=network.j2 dest=/etc/network/interfaces owner=root group=root  
+  notify: restart networks
+- name: Configure dnsmasq
+  template: src=dnsmasq.conf.j2 dest=/etc/dnsmasq.conf
+  notify: restart dnsmasq
+- name: Configure dns resolver
+  template: src=resolv.conf.j2 dest=/etc/resolvconf/resolv.conf.d/tail
+  notify: restart networks

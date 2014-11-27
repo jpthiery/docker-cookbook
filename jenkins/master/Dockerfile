@@ -26,6 +26,6 @@ RUN mkdir -p /var/lib/jenkins/.jenkins/users/jenkins/ && sed -f /tmp/user_sshkey
 RUN mkdir -p /var/lib/jenkins/.ssh/ && cat /var/lib/jenkins/id_rsa.pub > /var/lib/jenkins/.ssh/authorized_keys
 RUN chown -R jenkins:jenkins /var/lib/jenkins
 
-ENTRYPOINT exec su - jenkins -c "java -jar /usr/share/jenkins/jenkins.war"
+ENTRYPOINT exec su - jenkins -c "java -Dhudson.diyChunking=true -jar /usr/share/jenkins/jenkins.war"
 
 EXPOSE 8080 22 49275
