@@ -48,7 +48,7 @@ PORT_EXPOSE=$2
 if [[ -z $3 ]]; then
   GRAPHITE_PORT_EXPOSE="-P"
 else
-  GRAPHITE_PORT_EXPOSE="-p $3:2003 -P"
+  GRAPHITE_PORT_EXPOSE="-p $3:2003/udp -p $3:2003/tcp -P"
 fi
 
 REGISTRY=""
@@ -57,7 +57,7 @@ GRAPHITE_IMAGE="${REGISTRY}jpthiery/graphite"
 GRAFANA_IMAGE="${REGISTRY}jpthiery/grafana"
 ELS_IMAGE="dockerfile/elasticsearch"
 
-ELS_ID=$(docker run -d -P $ELS_IMAGE)
+ELS_ID=$(docker run -d -p 9200:9200 -p 9300:9300 $ELS_IMAGE)
 ELS_NAME=$(docker inspect -f '{{.Name}}' $ELS_ID)
 
 GRAPHITE_ID=$(docker run -d $GRAPHITE_PORT_EXPOSE $GRAPHITE_IMAGE)
