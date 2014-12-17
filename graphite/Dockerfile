@@ -15,6 +15,7 @@ ADD storage-aggregation.conf /etc/carbon/storage-aggregation.conf
 
 RUN sudo cp /usr/share/graphite-web/apache2-graphite.conf /etc/apache2/sites-available/graphite.conf
 RUN sudo a2dissite 000-default && sudo a2ensite graphite
+RUN sed -i 's#event = json.loads(request.raw_post_data)#event = json.loads(request.body)#g' /usr/lib/python2.7/dist-packages/graphite/events/views.py
 
 RUN chmod -R 777 /var/lib/graphite
 
